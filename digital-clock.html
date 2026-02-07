@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #282c34;
+            color: white;
+            margin: 0;
+        }
+        .clock-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .clock {
+            font-size: 2em;
+            margin: 10px 0;
+        }
+        @media (max-width: 600px) {
+            .clock {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="clock-container">
+        <div class="clock" id="utc">UTC: </div>
+        <div class="clock" id="ist">IST: </div>
+        <div class="clock" id="est">EST: </div>
+        <div class="clock" id="pst">PST: </div>
+        <div class="clock" id="jst">JST: </div>
+    </div>
+    <script>
+        function updateClocks() {
+            const options = { timeZone: 'UTC', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            document.getElementById('utc').innerText = 'UTC: ' + new Intl.DateTimeFormat([], options).format(new Date());
+            
+            options.timeZone = 'Asia/Kolkata'; // IST
+            document.getElementById('ist').innerText = 'IST: ' + new Intl.DateTimeFormat([], options).format(new Date());
+            
+            options.timeZone = 'America/New_York'; // EST
+            document.getElementById('est').innerText = 'EST: ' + new Intl.DateTimeFormat([], options).format(new Date());
+            
+            options.timeZone = 'America/Los_Angeles'; // PST
+            document.getElementById('pst').innerText = 'PST: ' + new Intl.DateTimeFormat([], options).format(new Date());
+            
+            options.timeZone = 'Asia/Tokyo'; // JST
+            document.getElementById('jst').innerText = 'JST: ' + new Intl.DateTimeFormat([], options).format(new Date());
+        }
+        
+        setInterval(updateClocks, 1000);
+        updateClocks(); // Initial call to set the clocks immediately
+    </script>
+</body>
+</html>
